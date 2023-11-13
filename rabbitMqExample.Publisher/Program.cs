@@ -8,19 +8,17 @@ factory.Uri = new Uri("amqps://epytrzjx:V1fSdtcKv36kwPqdaa1dgMw9MkPFlsPz@fish.rm
 using var connection = factory.CreateConnection();
 //Creating channel and sending message directly to queue
 var channel = connection.CreateModel();
-//durable:kuyruk memory de mi tutulsun yoksa kayıt edilsin mi
-//excluslive:publisher ımız farklı,subscriber ımız farklı olduğu için uygulama farklı processlerde çalıştığı için false geçeriz
-//autoDelete: herhangi bir sebepten ötürü consumerımız(subscriber) düşerse kuyruğu kaybetmemek için autoDelete i false a çektik.
-channel.QueueDeclare("hello-world-queue", durable: true, exclusive: false, autoDelete: false);
+//durable, exchange down olsa bile bu exchange tutulmaya devam eder
+channel.ExchangeDeclare(exchange:"logs-fanout",type:ExchangeType.Fanout,durable:true,false,null);
 
 
-//kuyruğa elli mesaj gönderelim
 for (int i = 0; i <= 50; i++) {
-    string message = "Hello World!"+i;
+    string message = "Log"+i;
     var messageBody = Encoding.UTF8.GetBytes(message);
-    channel.BasicPublish(String.Empty, "hello-world-queue", null, messageBody);
+    channel.BasicPublish(exchange:"logs-fanout","", null, messageBody);
+    Console.WriteLine("Log gönderildi");
+
 }
 
-Console.WriteLine("Mesaj gönderildi");
 Console.ReadLine();
 

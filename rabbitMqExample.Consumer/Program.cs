@@ -25,20 +25,34 @@ namespace rabbitMqExample.Consumer {
             //bir consumer eventi oluşturulur
             var consumer = new EventingBasicConsumer(channel);
 
+            #region FanoutExchange
+            //Queue oluşturulmaz fakat exchange e bind işlemi yapılır
+            //var randomName = channel.QueueDeclare().QueueName;
+            //channel.QueueBind(randomName, exchange: "logs-fanout", "", null);
+            #endregion
+
+
+            #region FanoutExchange2
+            //Queue oluşturulur ve consumer kapansa bile kuyruk kaydedilir.
+            var randomName = "database-test-log";
+            channel.QueueDeclare(randomName,true,false,false);
+            channel.QueueBind(randomName, exchange: "logs-fanout", "", null);
+            #endregion
+
 
 
             //Tüketilecek kuyruk adı ve consumer verilir
             //autoAck : true olduğunda mesaj kuyruğa eklenip bir subscriber tarafından ele alındığında otomatik olarak silinir.
             //false olduğunda ise subscriber bu isteğin düzgün bir şekilde işlendiğinden bizi haberdar eder,ondan sonra mesaj silinir.
-            channel.BasicConsume("hello-world-queue", autoAck:false, consumer);
-
+            channel.BasicConsume(randomName, autoAck:false, consumer);
+            Console.WriteLine("Loglar alınıyor....");
             consumer.Received += (object sender, BasicDeliverEventArgs e) => {
                 //mesaj kuyruktan alınıp stringe çevrilir
                 var message = Encoding.UTF8.GetString(e.Body.ToArray());
-                Console.WriteLine("Gelen mesaj:" + message);
+                Console.WriteLine("Log:" + message);
                 //multiple:false değeri şunu ifade eder,eğer susbcribe instance ında diyelim 5 tane mesaj olsun ilk mesaj düzgün şekilde işlendiğinde diğer 4 mesaj memory de işlenmeyi bekler. multiple false dediğimizde ,diğer dört mesajı tek tek işleme alıp işlem başarılı ise rabbit mq ya bilgi verir
                 //multiple true ise: memory de olan mesajlar da sanki başarılı bir şekilde işlenmişçesine rabbit mq ya 
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
                 channel.BasicAck(e.DeliveryTag, multiple:false);
             };
 
