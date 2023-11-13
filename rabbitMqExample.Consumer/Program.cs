@@ -16,7 +16,7 @@ namespace rabbitMqExample.Consumer {
             //bir consumer eventi oluşturulur
             var consumer = new EventingBasicConsumer(channel);
             //Tüketilecek kuyruk adı ve consumer verilir
-            channel.BasicConsume("hello-world-queue", false, consumer);
+            channel.BasicConsume("hello-world-queue", true, consumer);
             consumer.Received += (object sender, BasicDeliverEventArgs e) => {
                 //mesaj kuyruktan alınıp stringe çevrilir
                 var message = Encoding.UTF8.GetString(e.Body.ToArray());
