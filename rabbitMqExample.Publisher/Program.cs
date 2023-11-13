@@ -1,6 +1,9 @@
 ﻿using RabbitMQ.Client;
+using rabbitMqExample.Shared;
+using System.Net.Http.Headers;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
+using System.Text.Json;
 
 
 //Rabbit MQ url & connection
@@ -26,8 +29,19 @@ var properties = channel.CreateBasicProperties();
 properties.Persistent = true;
 properties.Headers = headers;
 
+var product = new Product {
+    Id=1,
+    Name="Test Product",
+    Price=456,
+    Stock=45
+};
 
-channel.BasicPublish(exchange: "headers-exchange", String.Empty, properties, Encoding.UTF8.GetBytes("Mesaj gönderildi"));
+//json a çevir
+var jsonProduct=JsonSerializer.Serialize(product);
+//byteArraye çevir
+var message = Encoding.UTF8.GetBytes(jsonProduct);
+
+channel.BasicPublish(exchange: "headers-exchange", String.Empty, properties, message);
 
 Console.WriteLine("Mesaj gönderildi");
 Console.ReadLine();

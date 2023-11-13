@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rabbitMqExample.Publisher", "rabbitMqExample.Publisher\rabbitMqExample.Publisher.csproj", "{8EB42A41-A4C7-41E9-A7E9-E355063BC42F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rabbitMqExample.Publisher", "rabbitMqExample.Publisher\rabbitMqExample.Publisher.csproj", "{8EB42A41-A4C7-41E9-A7E9-E355063BC42F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rabbitMqExample.Consumer", "rabbitMqExample.Consumer\rabbitMqExample.Consumer.csproj", "{4599E854-7C0A-41AB-9583-8D03E553B890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rabbitMqExample.Consumer", "rabbitMqExample.Consumer\rabbitMqExample.Consumer.csproj", "{4599E854-7C0A-41AB-9583-8D03E553B890}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rabbitMqExample.Shared", "rabbitMqExample.Shared\rabbitMqExample.Shared.csproj", "{B4CE5925-2CA5-4252-B02A-E77CBA9E3A38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{4599E854-7C0A-41AB-9583-8D03E553B890}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4599E854-7C0A-41AB-9583-8D03E553B890}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4599E854-7C0A-41AB-9583-8D03E553B890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4CE5925-2CA5-4252-B02A-E77CBA9E3A38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4CE5925-2CA5-4252-B02A-E77CBA9E3A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4CE5925-2CA5-4252-B02A-E77CBA9E3A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4CE5925-2CA5-4252-B02A-E77CBA9E3A38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

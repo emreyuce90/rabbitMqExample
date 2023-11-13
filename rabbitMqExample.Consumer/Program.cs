@@ -1,6 +1,8 @@
 ﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using rabbitMqExample.Shared;
 using System.Text;
+using System.Text.Json;
 
 namespace rabbitMqExample.Consumer {
     internal class Program {
@@ -40,12 +42,14 @@ namespace rabbitMqExample.Consumer {
             var queueName = channel.QueueDeclare().QueueName;
             channel.QueueBind(queueName, "headers-exchange", string.Empty, headers);
 
+            
 
             consumer.Received += (object sender, BasicDeliverEventArgs e) => {
                 //mesaj kuyruktan alınıp stringe çevrilir
                 var message = Encoding.UTF8.GetString(e.Body.ToArray());
-                Console.WriteLine("Log:" + message);
-                Thread.Sleep(1000);
+                Product product = JsonSerializer.Deserialize<Product>(message);
+
+                Console.WriteLine($"Product Id:{product.Id} \n Product Name:{product.Name}\n Product Price:{product.Price}");
                 channel.BasicAck(e.DeliveryTag, multiple:false);
             };
             channel.BasicConsume(queueName,false,consumer);
