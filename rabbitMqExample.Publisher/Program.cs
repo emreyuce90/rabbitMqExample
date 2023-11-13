@@ -12,32 +12,24 @@ var channel = connection.CreateModel();
 //durable, exchange down olsa bile bu exchange tutulmaya devam eder
 //exchange: kuyruğa farklı kaynaklardan bağlanılsın mı? 
 //autoDelete:publisher down olduğunda exchange silinsin mi
-channel.ExchangeDeclare(exchange: "logs-direct",durable:true,type:ExchangeType.Direct); //Exchange in oluşturulmasıu
-
-//4 farklı queue nin oluşturulması ve bu queuelerin mevcut exchange bind edilmesi
-Enum.GetNames(typeof(LogTypes)).ToList().ForEach(x => {
-    var routingKey = $"route-{x}"; //route-Critical route-Error...
-    var queueName = $"direct-queue-{x}"; //direct-queue-Critical //direct-queue-Error...
-    channel.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false); //kuyruk oluşturulması
-    channel.QueueBind(queueName, "logs-direct", routingKey, null);//bu kuyrukların exchange e bind edilmesi
-});
+channel.ExchangeDeclare(exchange: "headers-exchange",durable:true,type:ExchangeType.Headers); //Exchange in oluşturulmasıu
 
 
+//dictionary tipinde propertylerin oluşturulması
+Dictionary<string, object> headers = new();
+headers.Add("format", "pdf");
+headers.Add("type", "a4");
 
-//Kuyruklara mesaj gönderme işlemi
-for (int i = 0; i <= 50; i++) {
+//property oluşturduk
+var properties = channel.CreateBasicProperties();
+//mesaj içeriğinin kalıcı hale getirilmesi
+properties.Persistent = true;
+properties.Headers = headers;
 
-    //Rasgele bir rota oluşturulur
-    LogTypes randomTypes = (LogTypes)new Random().Next(1,5);  
-    
-    string message = $"LogType:{randomTypes}";
-    var messageBody = Encoding.UTF8.GetBytes(message);
-    var routeKey = $"route-{randomTypes}";
-    channel.BasicPublish(exchange: "logs-direct",routeKey, null, messageBody);
-    Console.WriteLine($"Log gönderildi:{message}");
 
-}
+channel.BasicPublish(exchange: "headers-exchange", String.Empty, properties, Encoding.UTF8.GetBytes("Mesaj gönderildi"));
 
+Console.WriteLine("Mesaj gönderildi");
 Console.ReadLine();
 
 

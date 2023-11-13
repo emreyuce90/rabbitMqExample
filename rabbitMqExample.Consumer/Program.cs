@@ -25,17 +25,30 @@ namespace rabbitMqExample.Consumer {
             //bir consumer eventi oluşturulur
             var consumer = new EventingBasicConsumer(channel);
 
-            Console.WriteLine("Loglar dinleniyor....");
+            //dictionary tipinde propertylerin oluşturulması
+            Dictionary<string, object> headers = new();
+            headers.Add("format", "pdf");
+            headers.Add("type", "a4");
+            headers.Add("x-match", "all");
+            //property oluşturduk
+            var properties = channel.CreateBasicProperties();
+            //mesaj içeriğinin kalıcı hale getirilmesi
+            properties.Persistent = true;
+            properties.Headers = headers;
+
+            //queuelerin chanela bind edilmesi
+            var queueName = channel.QueueDeclare().QueueName;
+            channel.QueueBind(queueName, "headers-exchange", string.Empty, headers);
+
+
             consumer.Received += (object sender, BasicDeliverEventArgs e) => {
                 //mesaj kuyruktan alınıp stringe çevrilir
                 var message = Encoding.UTF8.GetString(e.Body.ToArray());
                 Console.WriteLine("Log:" + message);
-                //multiple:false değeri şunu ifade eder,eğer susbcribe instance ında diyelim 5 tane mesaj olsun ilk mesaj düzgün şekilde işlendiğinde diğer 4 mesaj memory de işlenmeyi bekler. multiple false dediğimizde ,diğer dört mesajı tek tek işleme alıp işlem başarılı ise rabbit mq ya bilgi verir 
-                //multiple true ise: memory de olan mesajlar da sanki başarılı bir şekilde işlenmişçesine rabbit mq ya 
                 Thread.Sleep(1000);
                 channel.BasicAck(e.DeliveryTag, multiple:false);
             };
-            channel.BasicConsume("direct-queue-Critical", autoAck:false, consumer);
+            channel.BasicConsume(queueName,false,consumer);
 
             Console.ReadLine();
         }
