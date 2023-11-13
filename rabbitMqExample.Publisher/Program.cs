@@ -11,15 +11,16 @@ var channel = connection.CreateModel();
 //durable:kuyruk memory de mi tutulsun yoksa kayıt edilsin mi
 //excluslive:publisher ımız farklı,subscriber ımız farklı olduğu için uygulama farklı processlerde çalıştığı için false geçeriz
 //autoDelete: herhangi bir sebepten ötürü consumerımız(subscriber) düşerse kuyruğu kaybetmemek için autoDelete i false a çektik.
-channel.QueueDeclare("hello-world-queue",durable:true,exclusive:false,autoDelete:false);
+channel.QueueDeclare("hello-world-queue", durable: true, exclusive: false, autoDelete: false);
 
-//kuyruğa göndereceğimiz mesaj
-string message = "Hello World!";
-var messageBody = Encoding.UTF8.GetBytes(message);
 
-//Kuyruğa bu mesajı ekleme
-//exchange: şu an mesajımızı exchange üzerinden değil direkt olarak kuyruğa verdik
-channel.BasicPublish(String.Empty,"hello-world-queue", null,messageBody);
+//kuyruğa elli mesaj gönderelim
+for (int i = 0; i <= 50; i++) {
+    string message = "Hello World!"+i;
+    var messageBody = Encoding.UTF8.GetBytes(message);
+    channel.BasicPublish(String.Empty, "hello-world-queue", null, messageBody);
+}
+
 Console.WriteLine("Mesaj gönderildi");
 Console.ReadLine();
 
