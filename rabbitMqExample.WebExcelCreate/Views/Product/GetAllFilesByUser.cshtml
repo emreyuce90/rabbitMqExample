@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "GetAllFilesByUser";
+}
+@model List<UserFile>
+
+<h1>GetAllFilesByUser</h1>
+
+<table class="table table-bordered table-striped table-responsive">
+    <thead>
+    <th>
+        FileName
+    </th>
+    <th>
+        FilePath
+    </th>
+    <th>
+        CreatedDate
+    </th>
+    <th>
+        Download
+    </th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>@item.FileName</td>
+                <td>@item.FilePath</td>
+                <td>@item.GetCreatedDate</td>
+                <td><a class="btn btn-sucess" href="~/files/@item.FilePath">Download</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rabbitMqExample.Consumer", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rabbitMqExample.Shared", "rabbitMqExample.Shared\rabbitMqExample.Shared.csproj", "{B4CE5925-2CA5-4252-B02A-E77CBA9E3A38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rabbitMqExample.Watermark.Web", "rabbitMqExample.Watermark.Web\rabbitMqExample.Watermark.Web.csproj", "{32A2D018-32DB-4CEE-B02B-5E6242C440E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rabbitMqExample.Watermark.Web", "rabbitMqExample.Watermark.Web\rabbitMqExample.Watermark.Web.csproj", "{32A2D018-32DB-4CEE-B02B-5E6242C440E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rabbitMqExample.WebExcelCreate", "rabbitMqExample.WebExcelCreate\rabbitMqExample.WebExcelCreate.csproj", "{73BCC421-013E-483B-8E72-724E065A66B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelCreatorWorkerService", "ExcelCreatorWorkerService\ExcelCreatorWorkerService.csproj", "{2AC11FB5-DE45-45CB-97AE-4A4E0EC666AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{32A2D018-32DB-4CEE-B02B-5E6242C440E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32A2D018-32DB-4CEE-B02B-5E6242C440E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32A2D018-32DB-4CEE-B02B-5E6242C440E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73BCC421-013E-483B-8E72-724E065A66B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73BCC421-013E-483B-8E72-724E065A66B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73BCC421-013E-483B-8E72-724E065A66B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73BCC421-013E-483B-8E72-724E065A66B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AC11FB5-DE45-45CB-97AE-4A4E0EC666AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AC11FB5-DE45-45CB-97AE-4A4E0EC666AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AC11FB5-DE45-45CB-97AE-4A4E0EC666AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AC11FB5-DE45-45CB-97AE-4A4E0EC666AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
